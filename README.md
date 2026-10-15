@@ -62,5 +62,5 @@ src/
 ## Notes
 
 - Data is fetched on the server from `https://api-one-alpha-60.vercel.app/meller/products.json`; images are served from `https://storage.owndays.com/storage/`.
-- The API has no dedicated lifestyle images, so the hero and "Style Them" carousel use the on-model shots (last image of SKUs with a full image set). Replace with the Figma key visuals if exported.
+- The API has no dedicated lifestyle images, so the "Style Them" carousel uses the on-model shots (last image of SKUs with a full image set). The hero banner and OGP image use `public/images/ogp_1200x630.jpg`.
 - "ABOUT" and "STORES" links are placeholder anchors, as allowed by the brief.

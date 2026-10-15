@@ -4,13 +4,10 @@ import Footer from "@/components/Footer";
 import ProductExperience from "@/components/ProductExperience";
 import SectionTitle from "@/components/SectionTitle";
 import { getProducts } from "@/lib/api";
-import { imageUrl, sortedImages } from "@/lib/products";
+import heroImage from "../../public/images/ogp_1200x630.jpg";
 
 export default async function Home() {
   const products = await getProducts();
-  // KESSIE C3 on-model shot as the hero key visual
-  const heroSku = products.find((p) => p.product.model_name === "KESSIE")?.skus[2] ?? products[0].skus[0];
-  const heroImage = sortedImages(heroSku).at(-1);
 
   return (
     <>
@@ -20,16 +17,15 @@ export default async function Home() {
           id="about"
           className="relative -mt-[62px] grid h-[380px] place-items-center overflow-hidden bg-black lg:-mt-[102px] lg:h-[633px]"
         >
-          {heroImage && (
-            <Image
-              src={imageUrl(heroImage.path)}
-              alt="OWNDAYS × MELLER"
-              fill
-              priority
-              sizes="100vw"
-              className="object-cover opacity-80"
-            />
-          )}
+          <Image
+            src={heroImage}
+            alt="OWNDAYS × MELLER"
+            fill
+            priority
+            placeholder="blur"
+            sizes="100vw"
+            className="object-cover object-[50%_30%]"
+          />
           <SectionTitle
             as="h1"
             lines={["Products"]}

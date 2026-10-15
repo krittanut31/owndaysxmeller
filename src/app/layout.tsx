@@ -10,6 +10,7 @@ const notoSansJP = Noto_Sans_JP({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"),
   title: "OWNDAYS × MELLER | Sunglasses Collection",
   description: "OWNDAYS × MELLER サングラスコレクション。全8型のラインナップをチェック。",
   openGraph: {
@@ -17,7 +18,9 @@ export const metadata: Metadata = {
     description: "OWNDAYS × MELLER サングラスコレクション。",
     type: "website",
     locale: "ja_JP",
+    images: [{ url: "/images/ogp_1200x630.jpg", width: 1200, height: 630, alt: "OWNDAYS × MELLER" }],
   },
+  twitter: { card: "summary_large_image", images: ["/images/ogp_1200x630.jpg"] },
 };
 
 export const viewport: Viewport = { themeColor: "#f26a2f" };
