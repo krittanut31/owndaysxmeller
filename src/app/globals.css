@@ -8,16 +8,17 @@
 @font-face { font-family: "GT America Trial Cm"; font-weight: 900; font-display: swap; src: url("https://storage.owndays.com/meller/fonts/GTAmericaTrial/GTAmericaTrial-CmBd.woff2") format("woff2"); }
 
 @theme {
-  --color-brand: #f26a2f;
-  --color-ink: #1d1d1d;
+  --color-brand: #ef7139;
+  --color-brand-dark: #8a3f20;
+  --color-ink: #000000;
   --font-sans: var(--font-noto-sans-jp), "Hiragino Kaku Gothic ProN", sans-serif;
   --font-favorit: "Favorit", var(--font-noto-sans-jp), sans-serif;
   --font-gt: "GT America Trial Cm", "Favorit", sans-serif;
 }
 
 @layer base {
-  html { scroll-behavior: smooth; scroll-padding-top: 100px; }
-  body { @apply bg-[#f4f4f4] font-sans text-ink antialiased; }
+  html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+  body { @apply bg-black font-sans text-ink antialiased; }
 }
 
 @utility no-scrollbar {

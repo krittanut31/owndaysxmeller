@@ -24,8 +24,8 @@ export default function ProductExperience({ products }: ProductExperienceProps) 
 
   return (
     <>
-      <section id="products" className="relative mx-auto max-w-[1440px] px-4 lg:px-[70px]">
-        <div className="grid grid-cols-1 gap-[17px] lg:grid-cols-3">
+      <section id="products" className="bg-brand pt-8 lg:pt-[50px]">
+        <div className="mx-auto grid max-w-[1440px] grid-cols-1 gap-[10px] px-5 lg:grid-cols-3 lg:gap-[17px] lg:px-[50px]">
           {products.map((item, i) => (
             <ProductCard key={item.product.id} item={item} priority={i < 3} onOpen={open} />
           ))}

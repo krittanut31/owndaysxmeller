@@ -1,20 +1,20 @@
+import type { ElementType } from "react";
+
 interface SectionTitleProps {
   lines: string[];
+  as?: ElementType;
   className?: string;
 }
 
-/** Display heading with the brand-orange highlight bar behind each line. */
-export default function SectionTitle({ lines, className = "" }: SectionTitleProps) {
+/** Condensed display heading (GT America Compressed). */
+export default function SectionTitle({ lines, as: Tag = "h2", className = "" }: SectionTitleProps) {
   return (
-    <h2 className={`flex flex-col items-start gap-1 ${className}`}>
+    <Tag className={`font-gt leading-[0.85] font-black tracking-[-0.01em] uppercase ${className}`}>
       {lines.map((line) => (
-        <span
-          key={line}
-          className="bg-[linear-gradient(transparent_55%,var(--color-brand)_55%)] px-1 font-gt text-[56px] leading-[0.95] font-black tracking-tight uppercase lg:text-[96px]"
-        >
+        <span key={line} className="block">
           {line}
         </span>
       ))}
-    </h2>
+    </Tag>
   );
 }

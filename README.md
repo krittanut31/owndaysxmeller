@@ -53,7 +53,8 @@ src/
 - Mobile (<1024px): hamburger menu overlay, single-column grid, full-screen modal
 - Color swatches: solid hex, pattern image (`path`), or diagonal split for 2-color SKUs
 - Card swatch click switches the card image; modal chips switch the carousel + P/No.
-- "ONLINE STORE" links to `owndays.com/jp/ja/products/{code}?sku={skuId}`; shows **OUT OF STOCK** when `in_stock === 0` (e.g. CHAUEN)
+- "ONLINE STORE" links to `owndays.com/jp/ja/products/{code}?sku={skuId}`: orange → dark orange on hover, gray **OUT OF STOCK** when `in_stock === 0` (e.g. CHAUEN)
+- "ALL ITEMS": black → gray on hover (per the Figma "parts" frame)
 - Prices: `¥7,800+tax` (grid), `¥7,800 税込` (modal)
 - Accessibility: ESC closes modal/menu, focus moves to close button and is restored, keyboard-operable cards
 - Smooth enter/exit animations via CSS transitions (`@starting-style`)
@@ -61,5 +62,5 @@ src/
 ## Notes
 
 - Data is fetched on the server from `https://api-one-alpha-60.vercel.app/meller/products.json`; images are served from `https://storage.owndays.com/storage/`.
-- The API has no dedicated lifestyle images, so the "Style Them" carousel uses each product's last (on-model) image.
+- The API has no dedicated lifestyle images, so the hero and "Style Them" carousel use the on-model shots (last image of SKUs with a full image set). Replace with the Figma key visuals if exported.
 - "ABOUT" and "STORES" links are placeholder anchors, as allowed by the brief.
