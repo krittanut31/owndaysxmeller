@@ -18,9 +18,9 @@ export const metadata: Metadata = {
     description: "OWNDAYS × MELLER サングラスコレクション。",
     type: "website",
     locale: "ja_JP",
-    images: [{ url: "/images/ogp_1200x630.jpg", width: 1200, height: 630, alt: "OWNDAYS × MELLER" }],
+    images: [{ url: "/images/banner_desktop.jpg", width: 1200, height: 630, alt: "OWNDAYS × MELLER" }],
   },
-  twitter: { card: "summary_large_image", images: ["/images/ogp_1200x630.jpg"] },
+  twitter: { card: "summary_large_image", images: ["/images/banner_desktop.jpg"] },
 };
 
 export const viewport: Viewport = { themeColor: "#f26a2f" };
