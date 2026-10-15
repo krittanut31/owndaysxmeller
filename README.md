@@ -1,36 +1,65 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# OWNDAYS × MELLER — Product Listing Page
 
-## Getting Started
+Frontend assessment: a responsive product listing page for the OWNDAYS × MELLER sunglasses collection.
 
-First, run the development server:
+## Tech stack
+
+- **Next.js 16** (App Router, Cache Components, Turbopack)
+- **React 19** + **TypeScript**
+- **Tailwind CSS v4**
+- `next/image` for optimized, lazy-loaded images (AVIF/WebP)
+
+## Getting started
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev      # http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Production build:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npm run build
+npm start
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Project structure
 
-## Learn More
+```
+src/
+├── app/
+│   ├── layout.tsx            # Fonts, metadata (SEO/OGP)
+│   ├── page.tsx              # Server component: fetches products, renders page
+│   └── globals.css           # Tailwind theme tokens, @font-face (Favorit, GT America)
+├── components/
+│   ├── Header.tsx            # Sticky nav, desktop links + mobile hamburger overlay
+│   ├── ProductExperience.tsx # Owns modal state shared by grid + style carousel
+│   ├── ProductCard.tsx       # Image, model name, code, swatches (max 4), price
+│   ├── ColorSwatch.tsx       # Hex / pattern image / split (multi-color) swatch
+│   ├── ProductModal.tsx      # Side panel (desktop) / fullscreen (mobile), carousel, SKU chips
+│   ├── OnlineStoreButton.tsx # Default / hover / out-of-stock states
+│   ├── StyleSection.tsx      # "HOW TO STYLE THEM" horizontal scroll with "+" buttons
+│   ├── SectionTitle.tsx      # Highlighted display heading
+│   └── Footer.tsx            # "ALL ITEMS" CTA + links
+├── lib/
+│   ├── api.ts                # Server-only fetch with `"use cache"` (revalidates hourly)
+│   └── products.ts           # Pure helpers: image URLs, price formatting, labels
+└── types/product.ts          # API response types
+```
 
-To learn more about Next.js, take a look at the following resources:
+## Features
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Desktop (≥1024px): text nav, 3-column grid, 616px right-side panel
+- Mobile (<1024px): hamburger menu overlay, single-column grid, full-screen modal
+- Color swatches: solid hex, pattern image (`path`), or diagonal split for 2-color SKUs
+- Card swatch click switches the card image; modal chips switch the carousel + P/No.
+- "ONLINE STORE" links to `owndays.com/jp/ja/products/{code}?sku={skuId}`; shows **OUT OF STOCK** when `in_stock === 0` (e.g. CHAUEN)
+- Prices: `¥7,800+tax` (grid), `¥7,800 税込` (modal)
+- Accessibility: ESC closes modal/menu, focus moves to close button and is restored, keyboard-operable cards
+- Smooth enter/exit animations via CSS transitions (`@starting-style`)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Notes
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Data is fetched on the server from `https://api-one-alpha-60.vercel.app/meller/products.json`; images are served from `https://storage.owndays.com/storage/`.
+- The API has no dedicated lifestyle images, so the "Style Them" carousel uses each product's last (on-model) image.
+- "ABOUT" and "STORES" links are placeholder anchors, as allowed by the brief.

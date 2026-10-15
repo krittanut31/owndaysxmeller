@@ -1,26 +1,26 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@font-face { font-family: "Favorit"; font-weight: 400; font-display: swap; src: url("https://storage.owndays.com/meller/fonts/Favorit/Favorit-Regular.woff2") format("woff2"); }
+@font-face { font-family: "Favorit"; font-weight: 500; font-display: swap; src: url("https://storage.owndays.com/meller/fonts/Favorit/Favorit-Medium.woff2") format("woff2"); }
+@font-face { font-family: "Favorit"; font-weight: 700; font-display: swap; src: url("https://storage.owndays.com/meller/fonts/Favorit/Favorit-Bold.woff2") format("woff2"); }
+@font-face { font-family: "GT America Trial Cm"; font-weight: 500; font-display: swap; src: url("https://storage.owndays.com/meller/fonts/GTAmericaTrial/GTAmericaTrial-Md.woff2") format("woff2"); }
+@font-face { font-family: "GT America Trial Cm"; font-weight: 700; font-display: swap; src: url("https://storage.owndays.com/meller/fonts/GTAmericaTrial/GTAmericaTrial-CmBl.woff2") format("woff2"); }
+@font-face { font-family: "GT America Trial Cm"; font-weight: 900; font-display: swap; src: url("https://storage.owndays.com/meller/fonts/GTAmericaTrial/GTAmericaTrial-CmBd.woff2") format("woff2"); }
+
+@theme {
+  --color-brand: #f26a2f;
+  --color-ink: #1d1d1d;
+  --font-sans: var(--font-noto-sans-jp), "Hiragino Kaku Gothic ProN", sans-serif;
+  --font-favorit: "Favorit", var(--font-noto-sans-jp), sans-serif;
+  --font-gt: "GT America Trial Cm", "Favorit", sans-serif;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+@layer base {
+  html { scroll-behavior: smooth; scroll-padding-top: 100px; }
+  body { @apply bg-[#f4f4f4] font-sans text-ink antialiased; }
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@utility no-scrollbar {
+  scrollbar-width: none;
+  &::-webkit-scrollbar { display: none; }
 }
