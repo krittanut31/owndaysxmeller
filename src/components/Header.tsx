@@ -39,7 +39,7 @@ export default function Header() {
 
   return (
     <header
-      className={`sticky top-0 z-40 transition-colors duration-300 ${scrolled || open ? "bg-black" : "bg-transparent"}`}
+      className={`sticky top-0 z-40 transition-colors duration-300 ${scrolled ? "bg-black" : "bg-transparent"}`}
     >
       <div className="mx-auto flex max-w-[1440px] items-center justify-between px-5 py-[23px] lg:px-[50px] lg:py-[25px]">
         <Logo />
@@ -61,55 +61,84 @@ export default function Header() {
 
         <button
           type="button"
-          onClick={() => setOpen((o) => !o)}
-          aria-label={open ? "Close menu" : "Open menu"}
+          onClick={() => setOpen(true)}
+          aria-label="Open menu"
           aria-expanded={open}
           aria-controls="mobile-menu"
-          className="relative z-50 flex h-6 w-5 cursor-pointer flex-col justify-center gap-[5px] lg:hidden"
+          className="flex h-6 w-5 cursor-pointer flex-col justify-center gap-[5px] lg:hidden"
         >
-          <span className={`h-0.5 w-full bg-white transition-transform ${open ? "translate-y-[7px] rotate-45" : ""}`} />
-          <span className={`h-0.5 w-full bg-white transition-opacity ${open ? "opacity-0" : ""}`} />
-          <span className={`h-0.5 w-full bg-white transition-transform ${open ? "-translate-y-[7px] -rotate-45" : ""}`} />
+          <span className="h-0.5 w-full bg-white" />
+          <span className="h-0.5 w-full bg-white" />
+          <span className="h-0.5 w-full bg-white" />
         </button>
       </div>
 
-      <nav
+      {/* Mobile menu: floating panel that slides + fades in over a blurred page (ref: futuresnoops.com) */}
+      <div
         id="mobile-menu"
-        aria-label="Mobile"
         aria-hidden={!open}
-        className={`fixed inset-x-0 top-[70px] bottom-0 z-40 overflow-y-auto bg-black px-5 pt-6 pb-10 transition-opacity duration-300 lg:hidden ${
-          open ? "visible opacity-100" : "invisible opacity-0"
-        }`}
+        className={`fixed inset-0 z-50 transition-[visibility] lg:hidden ${open ? "visible" : "invisible delay-500"}`}
       >
-        <ul className="flex flex-col gap-4">
-          {NAV_LINKS.map((l) => (
-            <li key={l.href}>
-              <a
-                href={l.href}
-                onClick={() => setOpen(false)}
-                tabIndex={open ? 0 : -1}
-                className="font-favorit text-[15px] font-bold tracking-[0.7px] text-brand uppercase"
+        <div
+          onClick={() => setOpen(false)}
+          className={`absolute inset-0 bg-black/30 backdrop-blur-md transition-opacity duration-700 ${open ? "opacity-100" : "opacity-0"}`}
+        />
+        <nav
+          aria-label="Mobile"
+          className={`absolute inset-[10px] overflow-y-auto rounded-[12px] bg-black px-10 pt-[88px] pb-10 shadow-[0_8px_40px_rgba(0,0,0,0.5)] transition-[translate,opacity] duration-500 ease-out ${
+            open ? "translate-x-0 opacity-100" : "translate-x-[10%] opacity-0"
+          }`}
+        >
+          <button
+            type="button"
+            onClick={() => setOpen(false)}
+            aria-label="Close menu"
+            tabIndex={open ? 0 : -1}
+            className="absolute top-4 right-4 grid size-10 cursor-pointer place-items-center text-brand"
+          >
+            <svg viewBox="0 0 24 24" className="size-7" fill="currentColor" aria-hidden>
+              <path d="M18.36 19.78L12 13.41l-6.36 6.37-1.42-1.42L10.59 12 4.22 5.64l1.42-1.42L12 10.59l6.36-6.36 1.41 1.41L13.41 12l6.36 6.36z" />
+            </svg>
+          </button>
+
+          <ul className="flex flex-col gap-7">
+            {NAV_LINKS.map((l, i) => (
+              <li
+                key={l.href}
+                className={`transition-[translate,opacity] duration-500 ease-out ${open ? "translate-x-0 opacity-100" : "translate-x-4 opacity-0"}`}
+                style={{ transitionDelay: open ? `${150 + i * 60}ms` : "0ms" }}
               >
-                {l.label}
-              </a>
-            </li>
-          ))}
-        </ul>
-        <ul className="mt-10 flex flex-col gap-3">
-          {SUB_LINKS.map((l) => (
-            <li key={l.label}>
-              <a
-                href={l.href}
-                onClick={() => setOpen(false)}
-                tabIndex={open ? 0 : -1}
-                className="font-favorit text-[11px] tracking-[0.5px] text-brand uppercase"
+                <a
+                  href={l.href}
+                  onClick={() => setOpen(false)}
+                  tabIndex={open ? 0 : -1}
+                  className="inline-block font-favorit text-[18px] font-bold tracking-[1px] text-brand uppercase transition-transform duration-150 hover:translate-x-1"
+                >
+                  {l.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+          <ul className="mt-20 flex flex-col gap-5">
+            {SUB_LINKS.map((l, i) => (
+              <li
+                key={l.label}
+                className={`transition-[translate,opacity] duration-500 ease-out ${open ? "translate-x-0 opacity-100" : "translate-x-4 opacity-0"}`}
+                style={{ transitionDelay: open ? `${330 + i * 50}ms` : "0ms" }}
               >
-                {l.label}
-              </a>
-            </li>
-          ))}
-        </ul>
-      </nav>
+                <a
+                  href={l.href}
+                  onClick={() => setOpen(false)}
+                  tabIndex={open ? 0 : -1}
+                  className="inline-block font-favorit text-[11px] font-bold tracking-[0.8px] text-brand uppercase transition-transform duration-150 hover:translate-x-1"
+                >
+                  {l.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      </div>
     </header>
   );
 }
