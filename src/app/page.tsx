@@ -21,9 +21,9 @@ export default async function Home() {
       <main>
         <section
           id="about"
-          className="relative -mt-[62px] grid aspect-[390/677] place-items-center overflow-hidden bg-black lg:-mt-[102px] lg:aspect-auto lg:h-[633px]"
+          className="relative -mt-[70px] grid aspect-[390/677] place-items-center overflow-hidden bg-black lg:-mt-[102px] lg:aspect-auto lg:h-[633px]"
         >
-          <picture>
+          <picture className="absolute inset-0">
             <source media="(min-width: 1024px)" srcSet={desktopSrcSet} />
             <img
               {...mobileProps}
@@ -34,7 +34,7 @@ export default async function Home() {
           <SectionTitle
             as="h1"
             lines={["Products"]}
-            className="relative text-[64px] text-brand [-webkit-text-stroke:1px_#000] [text-shadow:4px_4px_0_#000] lg:text-[140px] lg:[text-shadow:6px_6px_0_#000]"
+            className="relative text-[80px] text-brand [-webkit-text-stroke:1px_#000] [text-shadow:4px_4px_0_#000] lg:text-[140px] lg:[text-shadow:6px_6px_0_#000]"
           />
         </section>
         <ProductExperience products={products} />

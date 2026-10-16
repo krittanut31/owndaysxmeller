@@ -8,7 +8,7 @@ function Logo() {
     <a
       href="#"
       aria-label="OWNDAYS × MELLER"
-      className="font-favorit text-[13px] leading-4 font-bold tracking-[2px] whitespace-nowrap text-white uppercase lg:text-[15px] lg:tracking-[3px]"
+      className="font-favorit text-[15px] leading-4 font-bold tracking-[2.6px] whitespace-nowrap text-white uppercase lg:text-[15px] lg:tracking-[3px]"
     >
       OWNDAYS <span className="mx-1.5 font-normal text-brand">×</span> MELLER
     </a>
@@ -39,7 +39,7 @@ export default function Header() {
 
   return (
     <header
-      className={`sticky top-0 z-40 transition-colors duration-300 ${scrolled ? "bg-black" : "bg-black lg:bg-transparent"}`}
+      className={`sticky top-0 z-40 transition-colors duration-300 ${scrolled || open ? "bg-black" : "bg-transparent"}`}
     >
       <div className="mx-auto flex max-w-[1440px] items-center justify-between px-5 py-[23px] lg:px-[50px] lg:py-[25px]">
         <Logo />
@@ -77,7 +77,7 @@ export default function Header() {
         id="mobile-menu"
         aria-label="Mobile"
         aria-hidden={!open}
-        className={`fixed inset-x-0 top-[62px] bottom-0 z-40 overflow-y-auto bg-black px-5 pt-6 pb-10 transition-opacity duration-300 lg:hidden ${
+        className={`fixed inset-x-0 top-[70px] bottom-0 z-40 overflow-y-auto bg-black px-5 pt-6 pb-10 transition-opacity duration-300 lg:hidden ${
           open ? "visible opacity-100" : "invisible opacity-0"
         }`}
       >
