@@ -17,7 +17,8 @@
 }
 
 @layer base {
-  html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+  /* Stable gutter: locking scroll for the modal must not resize the viewport (it aborts view transitions). */
+  html { scroll-behavior: smooth; scroll-padding-top: 80px; scrollbar-gutter: stable; }
   body { @apply bg-black font-sans text-ink antialiased; }
 }
 
@@ -76,12 +77,35 @@
   animation: none;
 }
 ::view-transition-group(product-panel) {
-  animation-duration: 0.7s;
-  animation-timing-function: cubic-bezier(0.87, 0, 0.13, 1);
+  animation-duration: 0.75s;
+  animation-timing-function: cubic-bezier(0.65, 0, 0.35, 1);
+}
+/* Keep both snapshots cropped (not stretched) while the box morphs. */
+::view-transition-image-pair(product-panel) {
+  overflow: hidden;
 }
 ::view-transition-old(product-panel),
 ::view-transition-new(product-panel) {
   height: 100%;
+  width: 100%;
   object-fit: cover;
-  animation-duration: 0.7s;
+  object-position: center top;
+  animation-duration: 0.75s;
+  animation-timing-function: cubic-bezier(0.65, 0, 0.35, 1);
+  animation-fill-mode: both;
+}
+/* Photo stays solid for most of the move, then hands off to the panel. */
+::view-transition-old(product-panel) {
+  animation-name: vt-photo-out;
+}
+::view-transition-new(product-panel) {
+  animation-name: vt-panel-in;
+}
+@keyframes vt-photo-out {
+  0%, 55% { opacity: 1; }
+  100% { opacity: 0; }
+}
+@keyframes vt-panel-in {
+  0%, 45% { opacity: 0; }
+  100% { opacity: 1; }
 }

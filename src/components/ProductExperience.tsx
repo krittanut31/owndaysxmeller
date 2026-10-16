@@ -31,13 +31,16 @@ export default function ProductExperience({ products }: ProductExperienceProps) 
       if (!document.startViewTransition || reduceMotion) return open(item, sku);
 
       source.style.viewTransitionName = MODAL_TRANSITION_NAME;
-      document.startViewTransition(() => {
+      const transition = document.startViewTransition(() => {
         source.style.viewTransitionName = "";
         flushSync(() => {
           setActive((prev) => ({ item, sku, key: (prev?.key ?? 0) + 1, morph: true }));
           setIsOpen(true);
         });
       });
+      // If the browser skips/aborts the animation the DOM update has still applied; don't surface it as an error.
+      transition.ready.catch(() => {});
+      transition.finished.catch(() => {});
     },
     [open],
   );
