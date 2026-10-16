@@ -4,6 +4,7 @@ import Image from "next/image";
 import type { ProductItem } from "@/types/product";
 import { imageUrl, sortedImages } from "@/lib/products";
 import { STYLE_LOOKS } from "@/lib/styleLooks";
+import { useDragScroll } from "@/hooks/useDragScroll";
 import SectionTitle from "./SectionTitle";
 
 interface StyleSectionProps {
@@ -25,6 +26,7 @@ function getLooks(products: ProductItem[]) {
 
 export default function StyleSection({ products, onOpen }: StyleSectionProps) {
   const looks = getLooks(products);
+  const scrollerRef = useDragScroll<HTMLUListElement>();
 
   return (
     <section id="style" className="relative overflow-hidden bg-brand pt-14 lg:pt-20">
@@ -33,7 +35,10 @@ export default function StyleSection({ products, onOpen }: StyleSectionProps) {
         className="relative z-10 mx-auto max-w-[1440px] px-5 text-[56px] text-black lg:-mb-6 lg:px-[50px] lg:text-[120px]"
       />
 
-      <ul className="no-scrollbar flex snap-x overflow-x-auto overscroll-x-contain bg-black">
+      <ul
+        ref={scrollerRef}
+        className="no-scrollbar flex cursor-grab snap-x overflow-x-auto overscroll-x-contain bg-black select-none data-dragging:cursor-grabbing"
+      >
         {looks.map(({ key, item, sku, skuIndex, src }) => (
           <li
             key={key}
@@ -44,6 +49,7 @@ export default function StyleSection({ products, onOpen }: StyleSectionProps) {
               alt={`${item.product.model_name} ${sku.code} styling`}
               fill
               sizes="(min-width: 1024px) 405px, 326px"
+              draggable={false}
               className="object-cover"
             />
             <button
