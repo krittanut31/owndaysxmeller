@@ -9,7 +9,6 @@ import bannerMobile from "../../public/images/banner_mobile.png";
 
 export default async function Home() {
   const products = await getProducts();
-  console.log("products", products);
 
   // Art direction: portrait banner on mobile, landscape on desktop.
   const common = { alt: "OWNDAYS × MELLER", sizes: "100vw", priority: true } as const;
