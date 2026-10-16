@@ -3,6 +3,7 @@
 import Image from "next/image";
 import type { ProductItem } from "@/types/product";
 import { imageUrl, sortedImages } from "@/lib/products";
+import { STYLE_LOOKS } from "@/lib/styleLooks";
 import SectionTitle from "./SectionTitle";
 
 interface StyleSectionProps {
@@ -10,16 +11,16 @@ interface StyleSectionProps {
   onOpen: (item: ProductItem, skuIndex: number, source: HTMLElement) => void;
 }
 
-/** SKUs with a full image set end with an on-model shot; shorter sets end with detail shots. */
-const MIN_IMAGES_FOR_LOOK = 5;
-
+/** Resolve the configured looks against API data; the last image of a SKU is its on-model shot. */
 function getLooks(products: ProductItem[]) {
-  return products.flatMap((item) =>
-    item.skus.map((sku, skuIndex) => {
-      const images = sortedImages(sku);
-      return { item, sku, skuIndex, image: images[images.length - 1] };
-    }),
-  ).filter((look) => look.image && look.sku.images.length >= MIN_IMAGES_FOR_LOOK);
+  return STYLE_LOOKS.flatMap((look, i) => {
+    const item = products.find((p) => p.product.code === look.code);
+    const skuIndex = item?.skus.findIndex((s) => s.code === look.sku) ?? -1;
+    if (!item || skuIndex < 0) return [];
+    const sku = item.skus[skuIndex];
+    const src = look.image ?? sortedImages(sku).map((img) => imageUrl(img.path)).at(-1);
+    return src ? [{ key: `${i}-${sku.id}`, item, sku, skuIndex, src }] : [];
+  });
 }
 
 export default function StyleSection({ products, onOpen }: StyleSectionProps) {
@@ -33,13 +34,13 @@ export default function StyleSection({ products, onOpen }: StyleSectionProps) {
       />
 
       <ul className="no-scrollbar flex snap-x overflow-x-auto overscroll-x-contain bg-black">
-        {looks.map(({ item, sku, skuIndex, image }) => (
+        {looks.map(({ key, item, sku, skuIndex, src }) => (
           <li
-            key={sku.id}
+            key={key}
             className="relative h-[492px] w-[326px] shrink-0 snap-start overflow-hidden lg:h-[611px] lg:w-[405px]"
           >
             <Image
-              src={imageUrl(image.path)}
+              src={src}
               alt={`${item.product.model_name} ${sku.code} styling`}
               fill
               sizes="(min-width: 1024px) 405px, 326px"
