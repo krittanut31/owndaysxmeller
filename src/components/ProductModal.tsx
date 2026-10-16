@@ -18,14 +18,11 @@ interface ProductModalProps {
   item: ProductItem;
   initialSku: number;
   open: boolean;
-  /** Opened via a shared-element view transition; skip the CSS slide-in. */
-  morph?: boolean;
   onClose: () => void;
 }
 
-export const MODAL_TRANSITION_NAME = "product-panel";
 
-export default function ProductModal({ item, initialSku, open, morph = false, onClose }: ProductModalProps) {
+export default function ProductModal({ item, initialSku, open, onClose }: ProductModalProps) {
   const [skuIndex, setSkuIndex] = useState(initialSku);
   const closeRef = useRef<HTMLButtonElement>(null);
   const carouselRef = useRef<HTMLDivElement>(null);
@@ -61,13 +58,12 @@ export default function ProductModal({ item, initialSku, open, morph = false, on
       aria-hidden={!open} aria-modal="true" aria-labelledby="product-modal-title">
       <div
         onClick={onClose}
-        className={`absolute inset-0 bg-black/50 transition-opacity duration-300 starting:opacity-0 ${open ? "opacity-100" : "opacity-0"}`}
+        className={`absolute inset-0 bg-black/50 transition-opacity duration-500 starting:opacity-0 ${open ? "opacity-100" : "opacity-0"}`}
       />
       <div
-        className={`absolute inset-y-0 right-0 flex w-full flex-col overflow-y-auto overscroll-contain bg-black transition-transform duration-300 ease-out lg:w-[616px] ${morph ? "" : "starting:translate-x-full"} ${
+        className={`absolute inset-y-0 right-0 flex w-full flex-col overflow-y-auto overscroll-contain bg-black transition-transform duration-[650ms] ease-[cubic-bezier(0.22,1,0.36,1)] starting:translate-x-full lg:w-[616px] ${
           open ? "translate-x-0" : "translate-x-full"
         }`}
-        style={morph && open ? { viewTransitionName: MODAL_TRANSITION_NAME } : undefined}
       >
         <div className="bg-white pb-6">
           <div className="flex items-start justify-between px-5 pt-5 lg:px-[30px] lg:pt-[30px]">

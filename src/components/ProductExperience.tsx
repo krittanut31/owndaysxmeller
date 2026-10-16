@@ -1,10 +1,9 @@
 "use client";
 
 import { useCallback, useState } from "react";
-import { flushSync } from "react-dom";
 import type { ProductItem } from "@/types/product";
 import ProductCard from "./ProductCard";
-import ProductModal, { MODAL_TRANSITION_NAME } from "./ProductModal";
+import ProductModal from "./ProductModal";
 import StyleSection from "./StyleSection";
 
 interface ProductExperienceProps {
@@ -14,36 +13,14 @@ interface ProductExperienceProps {
 /** Owns the shared modal state for the product grid and the style carousel. */
 export default function ProductExperience({ products }: ProductExperienceProps) {
   // `key` remounts the modal on every open so SKU state resets and the enter transition replays.
-  const [active, setActive] = useState<{ item: ProductItem; sku: number; key: number; morph: boolean } | null>(
-    null,
-  );
+  const [active, setActive] = useState<{ item: ProductItem; sku: number; key: number } | null>(null);
   const [isOpen, setIsOpen] = useState(false);
 
   const open = useCallback((item: ProductItem, sku: number) => {
-    setActive((prev) => ({ item, sku, key: (prev?.key ?? 0) + 1, morph: false }));
+    setActive((prev) => ({ item, sku, key: (prev?.key ?? 0) + 1 }));
     setIsOpen(true);
   }, []);
 
-  /** Morph the clicked element into the modal panel (View Transitions API), falling back to a plain open. */
-  const openFrom = useCallback(
-    (item: ProductItem, sku: number, source: HTMLElement) => {
-      const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      if (!document.startViewTransition || reduceMotion) return open(item, sku);
-
-      source.style.viewTransitionName = MODAL_TRANSITION_NAME;
-      const transition = document.startViewTransition(() => {
-        source.style.viewTransitionName = "";
-        flushSync(() => {
-          setActive((prev) => ({ item, sku, key: (prev?.key ?? 0) + 1, morph: true }));
-          setIsOpen(true);
-        });
-      });
-      // If the browser skips/aborts the animation the DOM update has still applied; don't surface it as an error.
-      transition.ready.catch(() => {});
-      transition.finished.catch(() => {});
-    },
-    [open],
-  );
   const close = useCallback(() => setIsOpen(false), []);
 
   return (
@@ -56,10 +33,10 @@ export default function ProductExperience({ products }: ProductExperienceProps) 
         </div>
       </section>
 
-      <StyleSection products={products} onOpen={openFrom} />
+      <StyleSection products={products} onOpen={open} />
 
       {active && (
-        <ProductModal key={active.key} item={active.item} initialSku={active.sku} open={isOpen} morph={active.morph} onClose={close} />
+        <ProductModal key={active.key} item={active.item} initialSku={active.sku} open={isOpen} onClose={close} />
       )}
     </>
   );

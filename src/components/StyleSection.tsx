@@ -8,7 +8,7 @@ import SectionTitle from "./SectionTitle";
 
 interface StyleSectionProps {
   products: ProductItem[];
-  onOpen: (item: ProductItem, skuIndex: number, source: HTMLElement) => void;
+  onOpen: (item: ProductItem, skuIndex: number) => void;
 }
 
 /** Resolve the configured looks against API data; the last image of a SKU is its on-model shot. */
@@ -48,7 +48,7 @@ export default function StyleSection({ products, onOpen }: StyleSectionProps) {
             />
             <button
               type="button"
-              onClick={(e) => onOpen(item, skuIndex, e.currentTarget.closest("li")!)}
+              onClick={() => onOpen(item, skuIndex)}
               aria-label={`View ${item.product.model_name} ${sku.code} details`}
               className="absolute right-0 bottom-0 grid size-[44px] cursor-pointer place-items-center bg-brand text-white transition-colors hover:bg-brand-dark lg:size-[70px]"
             >
