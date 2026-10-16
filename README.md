@@ -13,8 +13,19 @@ Frontend assessment: a responsive product listing page for the OWNDAYS × MELLER
 
 ```bash
 npm install
+cp .env.example .env.local
 npm run dev      # http://localhost:3000
 ```
+
+### Environment variables
+
+| Variable | Scope | Description |
+|---|---|---|
+| `PRODUCTS_API_URL` | Server | Products JSON endpoint (required) |
+| `NEXT_PUBLIC_IMAGE_BASE_URL` | Client | Prefix for API image paths |
+| `NEXT_PUBLIC_SITE_URL` | Client | Public site URL for absolute OGP URLs |
+
+On Vercel, set the same variables under **Project → Settings → Environment Variables**.
 
 Production build:
 

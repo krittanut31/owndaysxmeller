@@ -1,6 +1,6 @@
 import type { Color, ProductItem, Sku } from "@/types/product";
 
-export const IMAGE_BASE_URL = "https://storage.owndays.com/storage/";
+export const IMAGE_BASE_URL = process.env.NEXT_PUBLIC_IMAGE_BASE_URL ?? "https://storage.owndays.com/storage/";
 
 export const imageUrl = (path: string) => `${IMAGE_BASE_URL}${path}`;
 
