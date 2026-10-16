@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Noto_Sans_JP } from "next/font/google";
+import { getSiteUrl } from "@/lib/siteUrl";
 import "./globals.css";
 
 const notoSansJP = Noto_Sans_JP({
@@ -10,7 +11,7 @@ const notoSansJP = Noto_Sans_JP({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"),
+  metadataBase: getSiteUrl(),
   title: "OWNDAYS × MELLER | Sunglasses Collection",
   description: "OWNDAYS × MELLER サングラスコレクション。全8型のラインナップをチェック。",
   openGraph: {

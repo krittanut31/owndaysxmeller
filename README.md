@@ -23,7 +23,7 @@ npm run dev      # http://localhost:3000
 |---|---|---|
 | `PRODUCTS_API_URL` | Server | Products JSON endpoint (required) |
 | `NEXT_PUBLIC_IMAGE_BASE_URL` | Client | Prefix for API image paths |
-| `NEXT_PUBLIC_SITE_URL` | Client | Public site URL for absolute OGP URLs |
+| `NEXT_PUBLIC_SITE_URL` | Client | Public site URL for absolute OGP URLs (optional; defaults to the Vercel production domain) |
 
 On Vercel, set the same variables under **Project → Settings → Environment Variables**.
 
