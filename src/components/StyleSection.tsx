@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import type { ProductItem } from "@/types/product";
 import { imageUrl, sortedImages } from "@/lib/products";
@@ -5,7 +7,7 @@ import SectionTitle from "./SectionTitle";
 
 interface StyleSectionProps {
   products: ProductItem[];
-  onOpen: (item: ProductItem, skuIndex: number) => void;
+  onOpen: (item: ProductItem, skuIndex: number, source: HTMLElement) => void;
 }
 
 /** SKUs with a full image set end with an on-model shot; shorter sets end with detail shots. */
@@ -45,7 +47,7 @@ export default function StyleSection({ products, onOpen }: StyleSectionProps) {
             />
             <button
               type="button"
-              onClick={() => onOpen(item, skuIndex)}
+              onClick={(e) => onOpen(item, skuIndex, e.currentTarget.closest("li")!)}
               aria-label={`View ${item.product.model_name} ${sku.code} details`}
               className="absolute right-0 bottom-0 grid size-[44px] cursor-pointer place-items-center bg-brand text-white transition-colors hover:bg-brand-dark lg:size-[70px]"
             >
