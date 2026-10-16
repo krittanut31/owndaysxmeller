@@ -40,3 +40,10 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# assignment reference files (kept locally, not part of the submission)
+/EMAIL_TEMPLATE.md
+/FRONTEND_TEST.md
+/PRODUCTS_README.md
+/products.json
+/stores.json
