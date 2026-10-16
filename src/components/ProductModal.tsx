@@ -18,12 +18,11 @@ interface ProductModalProps {
   item: ProductItem;
   initialSku: number;
   open: boolean;
-  /** Opened via a shared-element view transition; skip the CSS slide-in. */
+  /** Opened via the photo fly-in animation; skip the CSS slide-in. */
   morph?: boolean;
   onClose: () => void;
 }
 
-export const MODAL_TRANSITION_NAME = "product-panel";
 
 export default function ProductModal({ item, initialSku, open, morph = false, onClose }: ProductModalProps) {
   const [skuIndex, setSkuIndex] = useState(initialSku);
@@ -67,7 +66,6 @@ export default function ProductModal({ item, initialSku, open, morph = false, on
         className={`absolute inset-y-0 right-0 flex w-full flex-col overflow-y-auto overscroll-contain bg-black transition-transform duration-300 ease-out lg:w-[616px] ${morph ? "" : "starting:translate-x-full"} ${
           open ? "translate-x-0" : "translate-x-full"
         }`}
-        style={morph && open ? { viewTransitionName: MODAL_TRANSITION_NAME } : undefined}
       >
         <div className="bg-white pb-6">
           <div className="flex items-start justify-between px-5 pt-5 lg:px-[30px] lg:pt-[30px]">

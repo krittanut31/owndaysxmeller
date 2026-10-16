@@ -25,6 +25,7 @@ function getLooks(products: ProductItem[]) {
 
 export default function StyleSection({ products, onOpen }: StyleSectionProps) {
   const looks = getLooks(products);
+  console.log("looks", looks);
 
   return (
     <section id="style" className="relative overflow-hidden bg-brand pt-14 lg:pt-20">

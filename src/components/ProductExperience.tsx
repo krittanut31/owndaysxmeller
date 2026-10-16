@@ -1,10 +1,10 @@
 "use client";
 
 import { useCallback, useState } from "react";
-import { flushSync } from "react-dom";
 import type { ProductItem } from "@/types/product";
 import ProductCard from "./ProductCard";
-import ProductModal, { MODAL_TRANSITION_NAME } from "./ProductModal";
+import { flyToPanel } from "@/lib/flyToPanel";
+import ProductModal from "./ProductModal";
 import StyleSection from "./StyleSection";
 
 interface ProductExperienceProps {
@@ -24,19 +24,13 @@ export default function ProductExperience({ products }: ProductExperienceProps) 
     setIsOpen(true);
   }, []);
 
-  /** Morph the clicked element into the modal panel (View Transitions API), falling back to a plain open. */
+  /** Slide the clicked photo right and expand it into the modal panel, then open the modal beneath it. */
   const openFrom = useCallback(
     (item: ProductItem, sku: number, source: HTMLElement) => {
-      const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      if (!document.startViewTransition || reduceMotion) return open(item, sku);
-
-      source.style.viewTransitionName = MODAL_TRANSITION_NAME;
-      document.startViewTransition(() => {
-        source.style.viewTransitionName = "";
-        flushSync(() => {
-          setActive((prev) => ({ item, sku, key: (prev?.key ?? 0) + 1, morph: true }));
-          setIsOpen(true);
-        });
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return open(item, sku);
+      flyToPanel(source, () => {
+        setActive((prev) => ({ item, sku, key: (prev?.key ?? 0) + 1, morph: true }));
+        setIsOpen(true);
       });
     },
     [open],
