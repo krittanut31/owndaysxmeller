@@ -10,18 +10,38 @@ const notoSansJP = Noto_Sans_JP({
   display: "swap",
 });
 
+const TITLE = "商品一覧 | OWNDAYS × MELLER（メラー） 公式オンラインストア｜サングラス";
+const DESCRIPTION =
+  "OWNDAYS × MELLER 商品一覧。デザイン性・機能性に優れたサステナブルな素材のサングラス（全てUV99%以上カット・偏光レンズ・傷防止コート・撥水コート）を展開中。";
+
 export const metadata: Metadata = {
   metadataBase: getSiteUrl(),
-  title: "OWNDAYS × MELLER | Sunglasses Collection",
-  description: "OWNDAYS × MELLER サングラスコレクション。全8型のラインナップをチェック。",
+  title: TITLE,
+  description: DESCRIPTION,
+  keywords: [
+    "商品一覧",
+    "サングラス",
+    "偏光レンズ",
+    "Meller",
+    "メラー",
+    "アイウェア",
+    "フレーム",
+    "サステイナブ",
+    "トレンド",
+    "バルセロナ",
+    "スペイン",
+    "OWNDAYS",
+    "オンデーズ",
+    "オンデイズ",
+  ],
   openGraph: {
-    title: "OWNDAYS × MELLER | Sunglasses Collection",
-    description: "OWNDAYS × MELLER サングラスコレクション。",
+    title: TITLE,
+    description: DESCRIPTION,
     type: "website",
     locale: "ja_JP",
     images: [{ url: "/images/banner_desktop.jpg", width: 1200, height: 630, alt: "OWNDAYS × MELLER" }],
   },
-  twitter: { card: "summary_large_image", images: ["/images/banner_desktop.jpg"] },
+  twitter: { card: "summary_large_image", title: TITLE, description: DESCRIPTION, images: ["/images/banner_desktop.jpg"] },
 };
 
 export const viewport: Viewport = { themeColor: "#f26a2f" };
